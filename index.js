@@ -28,10 +28,15 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * In counter 1 the count variable is stored within the function (closure!), and in counter 2 the variable is stored outside of the function. 
+ * 
  * 2. Which of the two uses a closure? How can you tell?
+ * 
+ * Counter 1 uses a closure. A child function is accessing a variable in a higher level. In counter 2 it's just accessing a variable in global scope. 
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
+ * Counter 1 would be preferable if you want to keep the count variable protected and only use it with this particular function. Counter 2 would be preferable if you wanted to have multiple functions working with the count variable. 
 */
 
 // counter1 code
@@ -56,10 +61,8 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  return Math.round(Math.random()*2)
 }
 
 /* Task 3: finalScore()
@@ -76,11 +79,23 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+// need to run cb() for each inning, and then add that to the total score 
 
-  /*Code Here*/
+function finalScore(cb, inning){
+    let Home = 0
+    let Away = 0 
+    for (let i = 0; i < inning; i++){
+      Home = cb() + Home;  
+    }
+    for (let i = 0; i < inning; i++){
+      Away = cb() + Away;  
+    }
 
+    console.log(`Home: ${Home}`) 
+    console.log(`Away: ${Away}`)
 }
+
+console.log(finalScore(inning, 9)); 
 
 /* Task 4: 
 
@@ -104,8 +119,31 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function getInningScore(cb, inning){
+  let Score = 0
+  for (let i = 0; i < inning; i++){
+    Score = cb() + Score;  
+  }
+  return Score; 
+
 }
+
+
+function scoreboard(cb1, cb2, innings) {
+  let Home = 0
+  let Away = 0 
+  for (let i = 1; i <= innings; i++){
+      Home = cb1(cb2, i);
+      Away = cb1(cb2, i);
+     console.log(`inning ${i}: Home: ${Home} - Away: ${Away}`) 
+  }
+
+  console.log(`Final Score: ${Home} - ${Away}`)
+
+}
+
+console.log(scoreboard(getInningScore, inning, 9))
+
+
 
 
