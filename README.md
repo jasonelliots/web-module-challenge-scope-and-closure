@@ -44,6 +44,9 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+
+Closures allow child or inner functions to access functions or variabled from their parent/outer functions. But outer cannot access the inner! Protect the children! 
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -65,8 +68,16 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+Closure is used with the anon function within personalDice. The anon function can reach out and grab the 'name' parameter. You can tell by the way it is nested in the personalDice function. 
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+It will always inert the name 'Dan' but the number will be different depending on what is randomly generated. 
+
 c. What is the lexical scope of `newRoll`? 
+
+The lexical scope (surrounding state) of 'newRoll' is the anon function within personalDice. 
 
 ### Task 3 - Stretch Goals
 
